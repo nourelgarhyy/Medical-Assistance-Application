@@ -1,40 +1,87 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:health_care_app/Models/reminder.dart';
+import 'package:health_care_app/Models/medicine_details.dart';
+import 'package:health_care_app/Models/user.dart';
+import 'package:health_care_app/Providers/meds.dart';
+import 'package:health_care_app/services/authentication_helper.dart';
+import 'package:provider/provider.dart' as provider;
 
-class FireStoreServices {
-  String uid = FirebaseAuth.instance.currentUser!.uid;
-  CollectionReference reminders =
-      FirebaseFirestore.instance.collection('Users');
+  
 
-  Future<Object?> addRem(Reminder rem) async {
-    try {
-      DocumentReference documentReference =
-          reminders.doc(uid).collection('Reminders').doc(rem.id);
-      FirebaseFirestore.instance.runTransaction((transaction) async {
-        DocumentSnapshot snapshot = await transaction.get(documentReference);
-        if (!snapshot.exists) {
-          documentReference.set({'Name': rem.name});
-          documentReference.set({'Dose': rem.dose});
-          documentReference.set({'Time': rem.time});
-          documentReference.set({'Description': rem.description});
-        }
-        String newName = snapshot['Name'] + rem.name;
-        String newDose = snapshot['Dose'] + rem.dose;
-        String newTime = snapshot['Time'] + rem.time;
-        String newDescription = snapshot['Description'] + rem.description;
+  Future addMed({required String med2, required String dose,required String time}) async{
+  final uid=AuthService().currentUser?.uid;
+  final Med=FirebaseFirestore.instance.collection('userMeds').doc(uid).collection('meds').doc();
 
-        transaction.update(documentReference, {'Name': newName});
-        transaction.update(documentReference, {'Dose': newDose});
-        transaction.update(documentReference, {'Time': newTime});
-        transaction.update(documentReference, {'Description': newDescription});
-      });
-    } catch (e) {
-      return e;
-    }
-  }
+  
+  final med=MedicineDeets(
+  id: Med.id,
+  med: med2,
+  dose: dose,
+  time: time,
+    
+  );
+  final json=med.toJson();
+  await  Med.set(json);
 
-  Future<void> removeReminder(String id) async {
-    reminders.doc(uid).collection('Reminders').doc(id).delete();
-  }
 }
+
+class DatabaseService{
+  final String? uid;
+  DatabaseService({this.uid});
+
+  final CollectionReference userMedsCollection = FirebaseFirestore.instance.collection('userMeds');
+
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('userMeds')
+.doc(AuthService().currentUser?.uid)
+.collection('meds').snapshots();
+
+Future updateUserData(String med, String dose, String time) async{
+  return await userMedsCollection.doc(uid).collection("meds").doc().set({
+    'med':med,
+    'dose':dose,
+    'time':time,
+  });
+ 
+
+
+}
+Future updateUserData2([String name="new", String time="new", String location="new"]) async{
+  return await userMedsCollection.doc(uid).collection("appointments").doc().set({
+    'name':name,
+    'location':location,
+    'time':time,
+  });
+ 
+
+}
+// Future createUser(User user) async {
+//   final docUser = FirebaseFirestore.instance.collection('users').doc(data.uid);
+//   user.id = docUser.id;
+//   final json = user.toJson();
+//   await docUser.set(json);
+// }
+
+
+
+// List<MedicineDeets> _medListFromSnapshot(QuerySnapshot snapshot){
+//   return snapshot.documents.map((doc){
+//     return MedcineDeets(
+//       id:doc.data['id'] ?? '',
+//       name:doc.get('name')?? '',
+//       name:doc.get('dose') ?? '',
+//       name:doc.get('time') ?? '',
+//     );
+//   }).toList(); 
+// }
+// Stream<QuerySnapshot> get userMeds{
+//   return userMedsCollection.snapshots();
+// }
+
+}
+
+
+  
+
+
