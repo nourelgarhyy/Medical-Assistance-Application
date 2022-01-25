@@ -13,7 +13,7 @@ import 'Screens/help.dart';
 import 'Screens/profile.dart';
 import 'Screens/emergency_contacts.dart';
 import 'Providers/contacts.dart';
-import 'Screens/add_contact.dart';
+//import 'Screens/add_contact.dart';
 import 'Screens/edit_profile.dart';
 import 'Providers/reminders_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -81,7 +81,7 @@ class MyScreen extends StatelessWidget {
           'help': (context) => Help(),
           'profile': (context) => Profile(),
           'contacts': (context) => Contacts(),
-          'addContact': (context) => AddEmergencyContact(),
+          //'addContact': (context) => AddEmergencyContact(),
           'editProfile': (context) => EditProfile(),
           'map':(context)=>Map(),
           'meds': (context) => MedicineList(),
