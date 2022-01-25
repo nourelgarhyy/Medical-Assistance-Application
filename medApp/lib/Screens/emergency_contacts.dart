@@ -26,6 +26,14 @@ class Contacts extends StatelessWidget {
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },child: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -37,7 +45,7 @@ class Contacts extends StatelessWidget {
             icon: Icon(Icons.add),
           ),
         ],
-        backgroundColor: Color(0xff92C9D4),
+        backgroundColor: Color(0xff053F5E),
         // leading: IconButton(
         //   onPressed: () {
         //     Navigator.pop(context);
