@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1089665190517",
+    "firebase_url": "https://health-reminder-apps-default-rtdb.firebaseio.com",
+    "project_id": "health-reminder-apps",
+    "storage_bucket": "health-reminder-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089665190517:android:de9333eab7f7f4c722863c",
+        "android_client_info": {
+          "package_name": "com.example.health_care_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089665190517-fmo73chivudt5c3ido5i59mih8l9h870.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYGlYYs2oj0d3c7vXUkhwa8vgV-V9r_KI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1089665190517-fmo73chivudt5c3ido5i59mih8l9h870.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
